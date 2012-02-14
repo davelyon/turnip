@@ -22,9 +22,8 @@ module Turnip
     end
 
     def rows_hash
-      return @rows_hash if @rows_hash
-      verify_table_width(2)
-      @rows_hash = self.class.new(raw.transpose).hashes[0]
+      transpose!
+      hashes.first
     end
 
     def transpose!
@@ -40,10 +39,6 @@ module Turnip
 
     def width
       raw[0].size
-    end
-
-    def verify_table_width(width)
-      raise %{The table must have exactly #{width} columns} unless raw[0].size == width
     end
   end
 end
