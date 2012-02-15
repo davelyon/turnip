@@ -22,13 +22,12 @@ module Turnip
     end
 
     def rows_hash
-      transpose!
-      hashes.first
+      transpose.hashes.first
     end
 
-    def transpose!
+    def transpose
       raise %{The table must have exactly #{width} columns} unless width == 2
-      @raw = raw.transpose
+      @raw = self.class.new(raw.transpose)
     end
 
     def each

@@ -45,8 +45,7 @@ describe Turnip::Table do
       let(:raw) { [["Name", "Dave"], ["Age", "99"], ["Height", "6ft"]] }
 
       it 'transposes the raw table' do
-        table.transpose!
-        table.hashes.should == [{ "Name" => "Dave", "Age" => "99", "Height" => "6ft" }]
+        table.transpose.hashes.should == [{ "Name" => "Dave", "Age" => "99", "Height" => "6ft" }]
       end
     end
 
@@ -55,7 +54,7 @@ describe Turnip::Table do
       let(:raw) { [["a", "b", "c"], ["1", "2", "3"]] }
 
       it 'raises an error' do
-        expect { table.transpose! }.to raise_error
+        expect { table.transpose }.to raise_error
       end
     end
   end
