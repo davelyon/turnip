@@ -17,6 +17,11 @@ module Turnip
         context.instance_exec(*params, &match.block)
       rescue Pending
         context.pending "the step '#{step.description}' is not implemented"
+      rescue Exception => e
+        message = "\nFailed: step #{step.description} \n #{e.message}"
+        exception = e.exception(message)
+        exception.set_backtrace(e.backtrace)
+        raise exception
       end
 
       def find(available_steps, description)
