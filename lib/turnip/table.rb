@@ -22,8 +22,13 @@ module Turnip
     end
 
     def rows_hash
-      raise %{The table must have exactly #{width} columns} unless width == 2
+      check_width! 2
       transpose.hashes.first
+    end
+
+    def to_list
+      check_width! 1
+      raw.flatten
     end
 
     def transpose
@@ -38,6 +43,10 @@ module Turnip
 
     def width
       raw[0].size
+    end
+
+    def check_width!(expected)
+      raise %{The table must have exactly #{expected} columns, not #{width}} unless width == expected
     end
   end
 end

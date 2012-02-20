@@ -65,6 +65,22 @@ describe Turnip::Table do
     end
   end
 
+  describe '#to_list' do
+    context "with a single column table" do
+      let(:raw) { [ [0], [1], [2] ] }
+      it "returns an array" do
+        table.to_list.should == [0,1,2]
+      end
+    end
+
+    context "with a multi-column table" do
+      let(:raw) { [ [0, 1], [1, 1], [2, 2] ] }
+      it "raises an error" do
+        expect { table.to_list }.to raise_error
+      end
+    end
+  end
+
   describe '#map' do
     let(:raw) { [['moo', '55'], ['quox', '42']] }
     it 'iterates over the raw table' do
